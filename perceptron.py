@@ -48,15 +48,18 @@ class Perceptron:
         self.forward(X)
         deltas = [None] * self.n_layers
         deltas[-1] = self.output_activated - Y
-        for i in np.arange(len(self.layers) - 2, 0, -1):
+        for i in np.arange(self.n_layers - 2, 0, -1):
             theta_tmp = self.layers[i].theta
             if self.bias:
                 # Removing weights for bias
                 theta_tmp = np.delete(theta_tmp, np.s_[0], 1)
             deltas[i] = (np.matmul(theta_tmp.transpose(), deltas[i + 1].transpose())).transpose() * \
-                self.sigmoid_derivative(self.layers[i].output)                  #TODO POPRAWIC BO COS MI NIE GRA
-
-        #TODO GRADIENT I ZMIANAA THETA
+                self.sigmoid_derivative(self.layers[i].output)                  #tak chyba działa? liczy delty na każdy layer
+        for i in range(self.n_layers - 1):
+            grad = np.matmul(deltas[i + 1].transpose(), self.layers[i].input)
+            grad = grad / n_examples
+            #self.layers[i].theta *= grad
+        #TODO ZMIANA THETA - mnożenie ale nie macierzy
 
     def forward(self, X):
         input_layer = X
