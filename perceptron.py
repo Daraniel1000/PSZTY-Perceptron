@@ -37,7 +37,6 @@ class Perceptron:
             for i in range(len(self.layers)):
                 self.layers[i].reinit()
         for i in range(n_iterations):
-            print(i)
             self.back_propagate(X, Y)
 
     def solve(self, X):
