@@ -58,8 +58,8 @@ class Perceptron:
         for i in range(self.n_layers - 1):
             grad = np.matmul(deltas[i + 1].transpose(), self.layers[i].input)
             grad = grad / n_examples
-            #self.layers[i].theta *= grad
-            self.layers[i].theta = np.multiply(self.layers[i].theta, grad)
+            self.layers[i].theta -= grad
+            #self.layers[i].theta = np.multiply(self.layers[i].theta, grad)
         #TODO PRZETESTOWAC
 
     def forward(self, X):
