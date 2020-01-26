@@ -37,6 +37,7 @@ class Perceptron:
             for i in range(len(self.layers)):
                 self.layers[i].reinit()
         for i in range(n_iterations):
+            print(i)
             self.back_propagate(X, Y)
 
     def solve(self, X):
@@ -54,7 +55,7 @@ class Perceptron:
                 # Removing weights for bias
                 theta_tmp = np.delete(theta_tmp, np.s_[0], 1)
             deltas[i] = (np.matmul(theta_tmp.transpose(), deltas[i + 1].transpose())).transpose() * \
-                self.sigmoid_derivative(self.layers[i].output)                  #tak chyba działa? liczy delty na każdy layer
+                        self.sigmoid_derivative(self.layers[i-1].output)                  #tak chyba działa? liczy delty na każdy layer
         for i in range(self.n_layers - 1):
             grad = np.matmul(deltas[i + 1].transpose(), self.layers[i].input)
             grad = grad / n_examples
