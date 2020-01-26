@@ -59,7 +59,8 @@ class Perceptron:
             grad = np.matmul(deltas[i + 1].transpose(), self.layers[i].input)
             grad = grad / n_examples
             #self.layers[i].theta *= grad
-        #TODO ZMIANA THETA - mnożenie ale nie macierzy
+            self.layers[i].theta = np.multiply(self.layers[i].theta, grad)
+        #TODO PRZETESTOWAC
 
     def forward(self, X):
         input_layer = X
