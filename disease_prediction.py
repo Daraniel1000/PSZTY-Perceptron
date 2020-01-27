@@ -83,7 +83,7 @@ for i in range(len(labels)):
 
 
 # Creating the MLP object
-classifier = perceptron.Perceptron(layer_sizes = [13, 20, 10, 5])
+classifier = perceptron.Perceptron(layer_sizes = [13, 10, 5])
 print(classifier)
 
 # Training with Backpropagation and 400 iterations
@@ -116,7 +116,7 @@ print('Training Accuracy: ' + str(acc*100))
 
 # Test Accuracy
 Y_hat = classifier.solve(test_X)
-print(Y_hat)
+#print(Y_hat)
 y_tmp = np.argmax(Y_hat, axis=1)
 y_hat = labels[y_tmp]
 
@@ -128,4 +128,6 @@ for i in range(len(y_hat)):
 print(n_same / len(y_hat))
 
 acc = np.mean(1 * (y_hat == test_y))
-print('Testing Accuracy: ' + str(acc*100)) 
+print('Testing Accuracy: ' + str(acc*100))
+print(y_hat)
+print(test_y)
