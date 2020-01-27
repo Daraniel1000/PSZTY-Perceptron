@@ -32,6 +32,8 @@ np.random.shuffle(data_list)
 target = []
 for i in range(len(data_list)):
     target = np.append(target, data_list[i].pop())
+    if target[i] > 0:
+        target[i] = 1
 
 data = np.array(data_list)
 
@@ -83,11 +85,11 @@ for i in range(len(labels)):
 
 
 # Creating the MLP object
-classifier = perceptron.Perceptron(layer_sizes = [13, 10, 5])
+classifier = perceptron.Perceptron(layer_sizes = [13, 9, 2])
 print(classifier)
 
 # Training with Backpropagation and 400 iterations
-iterations = 400
+iterations = 500
 loss = np.zeros([iterations,1])
 
 for ix in range(iterations):
@@ -120,14 +122,14 @@ Y_hat = classifier.solve(test_X)
 y_tmp = np.argmax(Y_hat, axis=1)
 y_hat = labels[y_tmp]
 
-n_same = 0
-for i in range(len(y_hat)):
-    if (y_hat[i] > 0 and test_y[i] > 0) or (y_hat[i] < 1 and test_y[i] < 1):
-        n_same += 1
+#n_same = 0
+#for i in range(len(y_hat)):
+#    if (y_hat[i] > 0 and test_y[i] > 0) or (y_hat[i] < 1 and test_y[i] < 1):
+#        n_same += 1
 
-print(n_same / len(y_hat))
+#print(n_same / len(y_hat))
 
 acc = np.mean(1 * (y_hat == test_y))
 print('Testing Accuracy: ' + str(acc*100))
 print(y_hat)
-print(test_y)
+#print(test_y)
