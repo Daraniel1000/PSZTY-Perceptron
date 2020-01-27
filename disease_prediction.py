@@ -113,5 +113,12 @@ print(Y_hat)
 y_tmp = np.argmax(Y_hat, axis=1)
 y_hat = labels[y_tmp]
 
+n_same = 0
+for i in range(len(y_hat)):
+    if (y_hat[i] > 0 and test_y[i] > 0) or (y_hat[i] < 1 and test_y[i] < 1):
+        n_same += 1
+
+print(n_same / len(y_hat))
+
 acc = np.mean(1 * (y_hat == test_y))
 print('Testing Accuracy: ' + str(acc*100)) 
