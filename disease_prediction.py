@@ -1,6 +1,7 @@
 import numpy as np
 import perceptron
 import csv
+import matplotlib.pyplot as plt
 import random as rd
 
 """
@@ -24,8 +25,8 @@ with open('heart_new.csv', newline='') as f:
     data_list = list(csv.reader(f, quoting=csv.QUOTE_NONNUMERIC))
 
 #shuffling data set - it is ordered by target
-#np.random.seed(753818022)
-#np.random.shuffle(data_list)
+np.random.seed(213718022)
+np.random.shuffle(data_list)
 
 #split target from data
 target = []
@@ -82,11 +83,11 @@ for i in range(len(labels)):
 
 
 # Creating the MLP object
-classifier = perceptron.Perceptron(layer_sizes = [13, 8, 5])
+classifier = perceptron.Perceptron(layer_sizes = [13, 20, 10, 5])
 print(classifier)
 
 # Training with Backpropagation and 400 iterations
-iterations = 1000
+iterations = 400
 loss = np.zeros([iterations,1])
 
 for ix in range(iterations):
@@ -97,6 +98,12 @@ for ix in range(iterations):
     y_hat = labels[y_tmp]
     
     loss[ix] = (0.5)*np.square(y_hat - train_y).mean()
+
+
+# Ploting loss vs iterations
+ix = np.arange(iterations)
+plt.plot(ix, loss)
+plt.show()
 
 # Training Accuracy
 Y_hat = classifier.solve(train_X)
